@@ -11,6 +11,5 @@ admin.initializeApp({
 });
 
 const db = admin.firestore(); // Для работы с Firestore
-const auth = admin.auth(); // Для работы с аутентификацией
 
-export { db, auth };
+export { db };
