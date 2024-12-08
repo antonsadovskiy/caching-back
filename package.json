@@ -1,11 +1,11 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "api/index.js",
   "scripts": {
     "start:redis": "redis-server",
     "stop:redis": "pkill redis-server",
-    "start:server": "ts-node src/index.ts",
+    "start:server": "node api/index.js",
     "back:run": "npm run start:server",
     "stop": "npm run stop:redis"
   },
