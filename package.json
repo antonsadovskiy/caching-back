@@ -7,7 +7,7 @@
     "start:redis": "redis-server",
     "stop:redis": "pkill redis-server",
     "start:server": "node api/index.mjs",
-    "back:run": "concurrently \"npm run start:redis\" \"npm run start:server\"",
+    "back:run": "npm run start:server",
     "stop": "npm run stop:redis"
   },
   "keywords": [],
