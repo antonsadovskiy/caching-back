@@ -1,11 +1,11 @@
-import { createServer } from "http";
-import { parse } from "url";
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import {createClient} from "redis";
-import {fetchDataFromCache} from "./request.service.js";
-import pkg from './firebaseConfig.cjs';
+const { createServer } = require("http");
+const { parse } = require("url");
+const express = require("express");
+const cors = require("cors");
+const bodyParser =require("body-parser");
+// import {createClient} from "redis";
+// import {fetchDataFromCache} from "./request.service.js";
+const pkg = require('./firebaseConfig.cjs');
 const {db} = pkg;
 
 const app = express();
@@ -14,18 +14,18 @@ app.use(express.json());
 app.use(cors(), bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const cacheClient = createClient();
+// const cacheClient = createClient();
 
-(async () => {
+/*(async () => {
     await cacheClient.connect();
-})();
+})();*/
 
 app.get("/", (req, res) => {
     res.json({ message: "Serverless API working!" });
 });
 
 app.get("/users", async (req, res) => {
-    try {
+    try {/*
         const { cacheKey, dataFromCache } = await fetchDataFromCache('users', cacheClient, req);
 
         if (dataFromCache) {
@@ -34,7 +34,7 @@ app.get("/users", async (req, res) => {
                 data: JSON.parse(dataFromCache),
             });
             return;
-        }
+        }*/
 
         const snapshot = await db.collection('users').get();
 
@@ -53,16 +53,17 @@ app.get("/users", async (req, res) => {
             data: users,
         });
 
-        await cacheClient.setEx(cacheKey, 10, JSON.stringify(users));
+        // await cacheClient.setEx(cacheKey, 10, JSON.stringify(users));
     } catch (err) {
         console.error('Error fetching users:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
+app.listen(3001, () => console.log("Server ready on port 3001."));
 
-export default (req, res) => {
+// Use export default instead of module.exports
+module.exports = (req, res) => {
     const server = createServer((req, res) => {
         const parsedUrl = parse(req.url, true);
         app(req, res, parsedUrl);

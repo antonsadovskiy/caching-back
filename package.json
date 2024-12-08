@@ -1,12 +1,11 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "main": "api/index.mjs",
-  "type": "module",
+  "main": "api/index.cjs",
   "scripts": {
     "start:redis": "redis-server",
     "stop:redis": "pkill redis-server",
-    "start:server": "node api/index.mjs",
+    "start:server": "node api/index.cjs",
     "back:run": "npm run start:server",
     "stop": "npm run stop:redis"
   },
